@@ -11,8 +11,6 @@ import responses
 import validators
 
 # FFTODAY WEBSITE
-# url = "https://www.fftoday.com/stats/players/1812/Tom_Brady"
-# player_url = "https://www.fftoday.com/stats/players"
 ################ BS4 ####################################################
 print('Which Player would you like to get stats for? ')
 last_name = input('Enter by Last Name: ')
@@ -20,77 +18,60 @@ print('------------------------------')
 player_url = fr"https://www.fftoday.com/stats/players?Search={last_name}"
 page = requests.get(player_url).text
 soup = BeautifulSoup(page, "html.parser")
-# page_text = soup.find_all(class_="smallbody")
 dfs = pd.read_html(player_url)
 #########################################################################
-# check_url = fr"https://www.fftoday.com/stats/players/*/*{last_name}"
-
-# responses = requests.get(player_url)
-# for response in responses.history:
-#     print(response.url)
-
 new_url = player_url
-
 response = requests.get(new_url)
+
+#########################################################################
 if response.history:
     print('------------------------------')
-    print('Current stats for '+last_name+' are:')
+    print('Current yearly stats for '+last_name+' are:')
     dfs = pd.read_html(new_url)
     df = dfs[7]
     print(df)
     print()
+    
 else:
+    player_names = []
     player_list = []
-    index = 1
+    index = 0
     links = soup.find_all("a", href=True)
     players = soup.find_all(class_="smallbody")
-    print("---Multiple Player(s) Found---")
+    print("--- Multiple Player(s) Found ---")
+    print()
     for player in players:
         print(index, player.text)
-        # player_list.append(link)
+        player_names.append(player.text)
+        player_list.append(player.a.get('href'))
         index += 1
     print('------------------------------')
 #########################################################################
-# valid=validators.url(fr"https://www.fftoday.com/stats/players?Search={last_name}")
+    select_player = 0
+    while True:
+        try:
+            select_player = int(input('Select specific player with corresponding number on list: '))
+            if select_player > (len(player_names)):
+                print ('Sorry that is out of range. Please Try again')
+                continue
+        except ValueError:
+            print("Must be an integer!")
+            continue
+        else:
+            print('Current yearly stats for '+player_names[select_player]+' are:')
+            sp_url = fr"https://www.fftoday.com{player_list[select_player]}"
+            dfs = pd.read_html(sp_url)
+            print('------------------------------------------------------------')
+            df = dfs[7]
+            print(df)
+            print('------------------------------------------------------------')
+            break 
+        
+    
+    #########################################################################
+    # PRINTS THE PLAYER DATA INTO A CSV FILE
+    # df.to_excel(r"C:\Users\Giovannie\Desktop\dataproject\statscrape.xlsx")
+    # df.to_csv(r"C:\Users\Giovannie\Desktop\dataproject\tablescrape.csv")
+    # print('Table Data has been written to an excel file')
 
-# if valid==False:
-#     print('Current stats for '+last_name+' are:')
-#     dfs = pd.read_html(player_url)
-#     df = dfs[7]
-#     print(df)
-# else:
-#     player_list = []
-#     index = 1
-#     links = soup.find_all("a", href=True)
-#     players = soup.find_all(class_="smallbody")
-#     for player in players:
-#         print(index, player.text)
-#         # player_list.append(link)
-#         index += 1
-
-#########################################################################
-# player_list = []
-# index = 1
-# links = soup.find_all("a", href=True)
-# players = soup.find_all(class_="smallbody")
-# for player in players:
-#     print(index, player.text)
-#     # player_list.append(link)
-#     index += 1
-
-# print()
-# print(player_list)
-
-############ PANDAS #####################################################
-#GRAB TABLE FOR PLAYER CAREER STATS
-# print('Current stats for '+last_name+' are:')
-# dfs = pd.read_html(player_url)
-# df = dfs[7]
-# print(df)
-#########################################################################
-# PRINTS THE PLAYER DATA INTO A CSV FILE
-# df.to_excel(r"C:\Users\Giovannie\Desktop\dataproject\statscrape.xlsx")
-# df.to_csv(r"C:\Users\Giovannie\Desktop\dataproject\tablescrape.csv")
-# print('Table Data has been written to an excel file')
-
-print('END')
+    print('END')
