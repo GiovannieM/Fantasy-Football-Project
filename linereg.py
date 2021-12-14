@@ -1,10 +1,8 @@
 ##################################################################################
-# PROGRAM WILL GRAB PLAYER STATS FROM LOCAL PATH AND CREAT A LINEAR REGRESSION
+# PROGRAM WILL GRAB PLAYER STATS FROM LOCAL PATH AND CREATE A LINEAR REGRESSION
 # MODEL FOR ATTEPMTS AND COMPLETION PERCENTAGE FOR QUATERACKS ONLY
-
 # ** WILL EVENTUALLY BE ABLE TO GRAB SPECIFIC PLAYER STATS **
-# ** AND CREATE MODELS FOR THOSE STATS **
-# test
+# ** AND CREATE PREDICTIONS FOR SPECIFIC STATS AND POINTS **
 ##################################################################################
 import pandas as pd
 import numpy as np
@@ -14,8 +12,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 # GRABS FROM THE EXCEL FILE
-df = pd.read_excel(r"C:\Users\Giovannie\Desktop\dataproject\playerstats\statscrape.xlsx")
-
+df = pd.read_excel(fr"( ~ YOUR PATH HERE ~ )\{PLAYER FILE}}.xlsx")
 print()
 year = int(input('What year would you want to begin at to look at Player Statistics?'))
 print(str(year) + ' and the years after will be used for predictions...')
@@ -62,7 +59,6 @@ print()
 # model.fit(x[:, np.newaxis], y)
 xfit = np.linspace(0, 800, 10)
 yfit = model.predict(xfit[:, np.newaxis])
-
 ##################################################################################
 # PRING OUT THE GRAPH 
 plt.xlabel('Passing Attempts')
