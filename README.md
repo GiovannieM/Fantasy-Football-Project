@@ -14,7 +14,7 @@ easier for me to have them seperated at the moment but will eventually be one wh
   - Numpy Documentation [numpy](https://numpy.org/install/)
   - SciKitLearn Documentation [sklearn](https://scikit-learn.org/stable/install.html)
   - Matplotlib Documentation [matplotlib](https://matplotlib.org/stable/users/installing/index.html)
-  For example of the Linear Rregression follow the link below.
+  - For example of the Linear Rregression follow the link.
   [Linear Regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)
 #### Exel file clean up:
 - openpyxl Documentation [openpyxl](https://pypi.org/project/openpyxl/)
