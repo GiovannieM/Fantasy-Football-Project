@@ -1,7 +1,7 @@
 # FantasyFootball_project
 This project is for web scraping NFL player(s) for ML modeling and predictions.
 The project was created as a challenge for myself to learn something new and grow my skills
-and is currently seperated into 3 different programs due to the constant updates. It is
+and is currently seperated into 2 different programs due to the constant updates. It is
 easier for me to have them seperated at the moment but will eventually be one whole program that works in unison.
 ## Installation Requirements
 >These programs use multple modules to be able to work with the data which are listed below:
@@ -16,5 +16,5 @@ easier for me to have them seperated at the moment but will eventually be one wh
   - Matplotlib Documentation [matplotlib](https://matplotlib.org/stable/users/installing/index.html)
   - For an example of Linear Regression follow the link.
   [Linear Regression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)
-#### Exel file clean up:
+#### Excel file clean up:
 - openpyxl Documentation [openpyxl](https://pypi.org/project/openpyxl/)
