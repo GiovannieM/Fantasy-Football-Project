@@ -3,6 +3,7 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
+from openpyxl import load_workbook
 #########################################################################
 print('Which Player would you like to get stats for? ')
 last_name = input('Enter by Last Name: ')
@@ -66,17 +67,31 @@ else:
             print('------------------------------------------------------------')
             break 
 #########################################################################
-# SAVING PLAYER STATS CAN BE OMMTTED OR SKIPPED !!
+# SAVING PLAYER STATS CAN BE SKIPPED !!
 #########################################################################
-# SAVES THE PLAYER DATA INTO A EXCEL OR CSV FILE
-# while True:
-#     if input('Would you like to create a txt fo csv file? Enter y/n : ') != 'y':
-#         break
-#     else:
-#         # PLEASE CHOOSE WHICH FILE TYPE YOU'D LIKE TO USE 
-#         df.to_excel(fr"( ~ YOUR PATH HERE ~ )\{player_names[select_player]}.xlsx")
-#         df.to_csv(fr"( ~ YOUR PATH HERE ~ )\{player_names[select_player]}.csv") 
-#         break
-
+# SAVES THE PLAYER DATA INTO A EXCEL OR CSV FILE (YOUR CHOICE )
+while True:
+    if input('Would you like to create a txt fo csv file? Enter y/n : ') != 'y':
+        break
+    else:
+        # PLEASE CHOOSE WHICH FILE TYPE YOU'D LIKE TO USE 
+        df.to_excel(fr"( ~ YOUR PATH HERE ~ )\{player_names[select_player]}.xlsx")
+        df.to_csv(fr"( ~ YOUR PATH HERE ~ )\{player_names[select_player]}.csv") 
+        break
+print('Player Stats have been saved as '+last_name+'.xlsx file')
 #########################################################################
+# CLEANS EXCEL FILE THAT WAS SAVED ABOVE
+# DELETES EXTRA DATA THAT IS NOT NEEDED ( FIRST, SECOND, AND LAST ROW AND THE FIRST COLUMN )
+# FILE MUST! BE CLOSED TO BE ABLE TO SAVE FILE
+#########################################################################
+wb = load_workbook(fr"( ~ YOUR PATH HERE ~ )\{player_names[select_player]}.xlsx")
+ws = wb.active
+ws.delete_rows(1,2)
+ws.delete_rows(ws.max_row)
+ws.delete_cols(1)
+print("Cleaning up excel file...")
+wb.save(fr"( ~ YOUR PATH HERE ~ )\{player_names[select_player]}.xlsx")
+print(' THE FILE HAS BEEN SAVED AND OVERWRITTEN!')
+print()
 print('PLAYER STAT SCRAPING ENDED...')
+#########################################################################
